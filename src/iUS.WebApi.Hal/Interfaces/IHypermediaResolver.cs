@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using iUS.WebApi.Hal.Interfaces;
 
-namespace iUS.WebApi.Hal
+namespace iUS.WebApi.Hal.Interfaces
 {
     public interface IHypermediaResolver
     {

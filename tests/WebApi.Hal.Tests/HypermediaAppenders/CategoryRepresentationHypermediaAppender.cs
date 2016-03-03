@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using WebApi.Hal.Interfaces;
 using WebApi.Hal.Tests.Representations;
 
 namespace WebApi.Hal.Tests.HypermediaAppenders

@@ -1,4 +1,5 @@
 using System;
+using iUS.WebApi.Hal.Interfaces;
 using iUS.WebApi.Hal.JsonConverters;
 using Microsoft.AspNet.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;

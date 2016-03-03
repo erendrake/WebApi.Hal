@@ -1,4 +1,5 @@
 using System;
+using iUS.WebApi.Hal.Interfaces;
 
 namespace iUS.WebApi.Hal.JsonConverters
 {
