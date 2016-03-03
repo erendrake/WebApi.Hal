@@ -3,19 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Core", "01. Core", "{4659FA04-52C6-445B-B0FB-10EE4D2B2EC7}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "iUS.WebApi.Hal.Web", "src\WebApi.Hal.Web\iUS.WebApi.Hal.Web.xproj", "{C29236B5-EEAF-4832-8277-86147FE83524}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Tests", "03. Tests", "{4713BDD1-B531-4BB7-88A5-9ABC25DD46A0}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "iUS.WebApi.Hal.Tests", "tests\WebApi.Hal.Tests\iUS.WebApi.Hal.Tests.xproj", "{4D20A2F5-FA59-437D-9321-FE193517588A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Unit Tests", "01. Unit Tests", "{C15AAD61-18DE-4214-A8CD-7DF842AACB34}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebApi.Hal", "src\WebApi.Hal\WebApi.Hal.xproj", "{E0C0193B-1244-4517-94FA-8086FD2960DD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Host", "02. Host", "{EEEBB31F-42CD-451D-8192-D9BCEE6C6457}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebApi.Hal.Web", "src\WebApi.Hal.Web\WebApi.Hal.Web.xproj", "{C29236B5-EEAF-4832-8277-86147FE83524}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebApi.Hal.Tests", "tests\WebApi.Hal.Tests\WebApi.Hal.Tests.xproj", "{4D20A2F5-FA59-437D-9321-FE193517588A}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "iUS.WebApi.Hal", "src\iUS.WebApi.Hal\iUS.WebApi.Hal.xproj", "{EF2B472C-4CA0-4F3D-97CE-D230057083FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E0C0193B-1244-4517-94FA-8086FD2960DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0C0193B-1244-4517-94FA-8086FD2960DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0C0193B-1244-4517-94FA-8086FD2960DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0C0193B-1244-4517-94FA-8086FD2960DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C29236B5-EEAF-4832-8277-86147FE83524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C29236B5-EEAF-4832-8277-86147FE83524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C29236B5-EEAF-4832-8277-86147FE83524}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,14 +23,12 @@ Global
 		{4D20A2F5-FA59-437D-9321-FE193517588A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D20A2F5-FA59-437D-9321-FE193517588A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D20A2F5-FA59-437D-9321-FE193517588A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF2B472C-4CA0-4F3D-97CE-D230057083FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF2B472C-4CA0-4F3D-97CE-D230057083FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF2B472C-4CA0-4F3D-97CE-D230057083FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF2B472C-4CA0-4F3D-97CE-D230057083FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C15AAD61-18DE-4214-A8CD-7DF842AACB34} = {4713BDD1-B531-4BB7-88A5-9ABC25DD46A0}
-		{E0C0193B-1244-4517-94FA-8086FD2960DD} = {4659FA04-52C6-445B-B0FB-10EE4D2B2EC7}
-		{C29236B5-EEAF-4832-8277-86147FE83524} = {EEEBB31F-42CD-451D-8192-D9BCEE6C6457}
-		{4D20A2F5-FA59-437D-9321-FE193517588A} = {C15AAD61-18DE-4214-A8CD-7DF842AACB34}
 	EndGlobalSection
 EndGlobal

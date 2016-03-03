@@ -1,7 +1,7 @@
 {
     "version": "1.0.0-*",
-    "description": "WebApi.Hal",
-    "authors": [ "Jake Ginnivan" ],
+    "description": "iUS.WebApi.Hal",
+    "authors": [ "Jake Ginnivan", "Chris Woerz" ],
     "tags": [ "Hypermedia", "Asp.net", "WebApi", "Json", "Xml", "Hal" ],
     "projectUrl": "",
     "licenseUrl": "",
