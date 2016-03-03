@@ -7,14 +7,14 @@ namespace iUS.WebApi.Hal
     {
         protected SimpleListRepresentation()
         {
-            ResourceList = new List<TResource>();
+            Items = new List<TResource>();
         }
 
         protected SimpleListRepresentation(IList<TResource> list)
         {
-            ResourceList = list;
+            Items = list;
         }
 
-        public IList<TResource> ResourceList { get; set; }
+        public IList<TResource> Items { get; set; }
     }
 }
