@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using iUS.WebApi.Hal.Interfaces;
+using iUS.WebApi.Hal.JsonConverters;
 using Newtonsoft.Json;
-using WebApi.Hal.Interfaces;
-using WebApi.Hal.JsonConverters;
 
-namespace WebApi.Hal
+namespace iUS.WebApi.Hal
 {
     public abstract class Representation : IResource
     {

@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace WebApi.Hal.Interfaces
+namespace iUS.WebApi.Hal.Interfaces
 {
     public interface IRepresentationList : IResource, IEnumerable
     {

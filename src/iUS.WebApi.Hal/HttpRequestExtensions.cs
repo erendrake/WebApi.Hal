@@ -1,4 +1,4 @@
-﻿namespace WebApi.Hal
+﻿namespace iUS.WebApi.Hal
 {
     public static class HttpRequestExtensions
     {

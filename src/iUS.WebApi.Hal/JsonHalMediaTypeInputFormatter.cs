@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNet.Mvc.Formatters;
+﻿using System;
+using iUS.WebApi.Hal.JsonConverters;
+using Microsoft.AspNet.Mvc.Formatters;
 using Newtonsoft.Json;
-using System;
-using WebApi.Hal.JsonConverters;
 
-namespace WebApi.Hal
+namespace iUS.WebApi.Hal
 {
     public class JsonHalMediaTypeInputFormatter : JsonInputFormatter
     {

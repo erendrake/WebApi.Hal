@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace WebApi.Hal
+namespace iUS.WebApi.Hal
 {
     public static class StringExtensions
     {

@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
+using iUS.WebApi.Hal.Interfaces;
 using Newtonsoft.Json;
-using WebApi.Hal.Interfaces;
 
-namespace WebApi.Hal.JsonConverters
+namespace iUS.WebApi.Hal.JsonConverters
 {
     [Obsolete("use SimpleListRepresentation instead of RepresentationList")]
     public class ResourceListConverter : JsonConverter

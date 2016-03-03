@@ -1,6 +1,6 @@
-using WebApi.Hal.Interfaces;
+using iUS.WebApi.Hal.Interfaces;
 
-namespace WebApi.Hal
+namespace iUS.WebApi.Hal
 {
     public interface IHypermediaBuilder
     {

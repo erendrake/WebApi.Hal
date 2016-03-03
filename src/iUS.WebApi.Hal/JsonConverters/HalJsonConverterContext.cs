@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApi.Hal.JsonConverters
+namespace iUS.WebApi.Hal.JsonConverters
 {
     public class HalJsonConverterContext
     {

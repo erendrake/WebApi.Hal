@@ -1,10 +1,10 @@
 using System;
-using Newtonsoft.Json;
-using WebApi.Hal.JsonConverters;
+using iUS.WebApi.Hal.JsonConverters;
 using Microsoft.AspNet.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 
-namespace WebApi.Hal
+namespace iUS.WebApi.Hal
 {
     public class JsonHalMediaTypeOutputFormatter : JsonOutputFormatter
     {

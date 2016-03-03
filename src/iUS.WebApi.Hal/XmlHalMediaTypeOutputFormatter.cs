@@ -1,18 +1,18 @@
-using Microsoft.AspNet.Mvc.Formatters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using WebApi.Hal.Interfaces;
-using System.Threading.Tasks;
-using System.Text;
+using iUS.WebApi.Hal.Interfaces;
+using Microsoft.AspNet.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 
-namespace WebApi.Hal
+namespace iUS.WebApi.Hal
 {
     public class XmlHalMediaTypeOutputFormatter : OutputFormatter
     {

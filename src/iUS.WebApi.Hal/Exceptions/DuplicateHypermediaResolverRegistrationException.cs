@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApi.Hal.Exceptions
+namespace iUS.WebApi.Hal.Exceptions
 {
     public class DuplicateHypermediaResolverRegistrationException : Exception
     {
