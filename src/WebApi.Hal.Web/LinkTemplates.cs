@@ -1,4 +1,6 @@
-﻿namespace WebApi.Hal.Web
+﻿using iUS.WebApi.Hal;
+
+namespace WebApi.Hal.Web
 {
     public static class LinkTemplates
     {

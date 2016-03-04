@@ -9,15 +9,13 @@ namespace iUS.WebApi.Hal
 {
     public class JsonHalMediaTypeOutputFormatter : JsonOutputFormatter
     {
-        private const string _mediaTypeHeaderValueName = "application/hal+json";
+        private const string MediaTypeHeaderValueName = "application/hal+json";
 
-        private readonly LinksConverter _linksConverter = new LinksConverter();
+        private readonly LinksConverter linksConverter = new LinksConverter();
 
-        private readonly ResourceListConverter _resourceListConverter = new ResourceListConverter();
+        private readonly ResourceConverter resourceConverter = new ResourceConverter();
 
-        private readonly ResourceConverter _resourceConverter = new ResourceConverter();
-
-        private readonly EmbeddedResourceConverter _embeddedResourceConverter = new EmbeddedResourceConverter();
+        private readonly EmbeddedResourceConverter embeddedResourceConverter = new EmbeddedResourceConverter();
 
         #region Constructors
 
@@ -28,7 +26,7 @@ namespace iUS.WebApi.Hal
                 throw new ArgumentNullException(nameof(hypermediaResolver));
             }
 
-            _resourceConverter = new ResourceConverter(hypermediaResolver);
+            resourceConverter = new ResourceConverter(hypermediaResolver);
             Initialize();
         }
 
@@ -43,11 +41,10 @@ namespace iUS.WebApi.Hal
 
         private void Initialize()
         {
-            SupportedMediaTypes.Add(new MediaTypeHeaderValue(_mediaTypeHeaderValueName));
-            SerializerSettings.Converters.Add(_linksConverter);
-            SerializerSettings.Converters.Add(_resourceListConverter);
-            SerializerSettings.Converters.Add(_resourceConverter);
-            SerializerSettings.Converters.Add(_embeddedResourceConverter);
+            SupportedMediaTypes.Add(new MediaTypeHeaderValue(MediaTypeHeaderValueName));
+            SerializerSettings.Converters.Add(linksConverter);
+            SerializerSettings.Converters.Add(resourceConverter);
+            SerializerSettings.Converters.Add(embeddedResourceConverter);
             SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
         }
 

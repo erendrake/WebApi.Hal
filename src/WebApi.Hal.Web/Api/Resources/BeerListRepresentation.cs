@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using iUS.WebApi.Hal;
 
 namespace WebApi.Hal.Web.Api.Resources
 {

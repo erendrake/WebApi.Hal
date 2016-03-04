@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using iUS.WebApi.Hal;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;

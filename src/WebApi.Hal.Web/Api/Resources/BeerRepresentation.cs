@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using iUS.WebApi.Hal;
 using Newtonsoft.Json;
 
 namespace WebApi.Hal.Web.Api.Resources

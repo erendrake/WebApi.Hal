@@ -1,3 +1,5 @@
+using iUS.WebApi.Hal;
+
 namespace WebApi.Hal.Web.Api.Resources
 {
     public class BeerStyleRepresentation : Representation

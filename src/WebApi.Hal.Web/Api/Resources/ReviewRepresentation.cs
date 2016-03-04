@@ -1,4 +1,6 @@
-﻿namespace WebApi.Hal.Web.Api.Resources
+﻿using iUS.WebApi.Hal;
+
+namespace WebApi.Hal.Web.Api.Resources
 {
     public class ReviewRepresentation : Representation
     {
