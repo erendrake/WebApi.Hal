@@ -6,12 +6,12 @@ namespace iUS.WebApi.Hal
 {
     public sealed class ActionBasedHypermediaAppender<T> : IHypermediaAppender<T> where T : class, IResource
     {
-        readonly Action<T, IEnumerable<Link>> appendAction;
+        private readonly Action<T, IEnumerable<Link>> appendAction;
 
         public ActionBasedHypermediaAppender(Action<T, IEnumerable<Link>> appendAction)
         {
             if (appendAction == null) 
-                throw new ArgumentNullException("appendAction");
+                throw new ArgumentNullException(nameof(appendAction));
 
             this.appendAction = appendAction;
         }

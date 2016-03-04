@@ -16,7 +16,7 @@ namespace WebApi.Hal.Web.Api.Resources
         protected override void CreateHypermedia()
         {
             base.CreateHypermedia();
-            var search = LinkTemplates.Beers.SearchBeers;
+            Link search = LinkTemplates.Beers.SearchBeers;
             if (Links.Count(l=>l.Rel == search.Rel && l.Href == search.Href) == 0)
                 Links.Add(LinkTemplates.Beers.SearchBeers);
         }

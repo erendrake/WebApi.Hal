@@ -12,7 +12,7 @@ namespace WebApi.Hal.Web.Api
     {
         public const int PageSize = 5;
 
-        readonly IRepository repository;
+        private readonly IRepository repository;
 
         public BeersController(IRepository repository)
         {
@@ -23,7 +23,7 @@ namespace WebApi.Hal.Web.Api
         [HttpGet]
         public BeerListRepresentation Get(int page = 1)
         {
-            var beers = repository.Find(new GetBeersQuery(), page, PageSize);
+            PagedResult<BeerRepresentation> beers = repository.Find(new GetBeersQuery(), page, PageSize);
 
             var resourceList = new BeerListRepresentation(beers.ToList(), beers.TotalResults, beers.TotalPages, page, LinkTemplates.Beers.GetBeers);
 

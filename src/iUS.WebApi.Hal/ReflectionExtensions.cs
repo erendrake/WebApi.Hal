@@ -8,11 +8,11 @@ namespace iUS.WebApi.Hal
 {
     internal static class ReflectionExtensions
     {
-        static readonly string[] NonSerializedProperties = new[] { "Rel", "Href", "LinkName" };
+        private static readonly string[] nonSerializedProperties = new[] { "Rel", "Href", "LinkName" };
 
         public static bool IsValidBasicType(this PropertyInfo property)
         {
-            return !NonSerializedProperties.Contains(property.Name) && property.PropertyType.Namespace == "System"
+            return !nonSerializedProperties.Contains(property.Name) && property.PropertyType.Namespace == "System"
                    && (property.PropertyType.IsValueType || property.PropertyType == typeof(string));
         }
 
@@ -20,7 +20,7 @@ namespace iUS.WebApi.Hal
         {
             if (type.IsGenericType && typeof(IList).IsAssignableFrom(type))
             {
-                var genericType = type.GetGenericArguments().Single();
+                Type genericType = type.GetGenericArguments().Single();
                 return typeof(Representation).IsAssignableFrom(genericType);
             }
 
@@ -34,7 +34,7 @@ namespace iUS.WebApi.Hal
 
         public static void SetPropertyValueFromString(this Type type, string propertyName, string value, object instance)
         {
-            var property = type.GetProperty(propertyName);
+            PropertyInfo property = type.GetProperty(propertyName);
 
             if (property.PropertyType == typeof(int) || property.PropertyType == typeof(int?))
             {
@@ -94,7 +94,7 @@ namespace iUS.WebApi.Hal
             type.SetPropertyValueFromString(propertyName, element.Value, instance);
         }
 
-        static void SetPropertyValueFromString<T>(this PropertyInfo property, Func<string, T> conversion, string value, object instance)
+        private static void SetPropertyValueFromString<T>(this PropertyInfo property, Func<string, T> conversion, string value, object instance)
         {
             T convertedValue = value == null ? default(T) : conversion(value);
 

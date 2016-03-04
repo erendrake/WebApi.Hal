@@ -1,20 +1,20 @@
+using iUS.WebApi.Hal.Interfaces;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using iUS.WebApi.Hal.Interfaces;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace iUS.WebApi.Hal.JsonConverters
 {
     public class ResourceConverter : JsonConverter
     {
-        const StreamingContextStates StreamingContextResourceConverterState = StreamingContextStates.Other;
+        private const StreamingContextStates StreamingContextResourceConverterState = StreamingContextStates.Other;
 
-        readonly IHypermediaResolver hypermediaConfiguration;
+        private readonly IHypermediaResolver hypermediaConfiguration;
 
         public ResourceConverter()
         {
@@ -23,7 +23,7 @@ namespace iUS.WebApi.Hal.JsonConverters
         public ResourceConverter(IHypermediaResolver hypermediaConfiguration)
         {
             if (hypermediaConfiguration == null)
-                throw new ArgumentNullException("hypermediaConfiguration");
+                throw new ArgumentNullException(nameof(hypermediaConfiguration));
 
             this.hypermediaConfiguration = hypermediaConfiguration;
         }
@@ -35,7 +35,7 @@ namespace iUS.WebApi.Hal.JsonConverters
 
         private StreamingContext GetResourceConverterContext()
         {
-            var context = (hypermediaConfiguration == null)
+            HalJsonConverterContext context = (hypermediaConfiguration == null)
                 ? new HalJsonConverterContext()
                 : new HalJsonConverterContext(hypermediaConfiguration);
 
@@ -45,21 +45,21 @@ namespace iUS.WebApi.Hal.JsonConverters
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var resource = (IResource)value;
-			var linksBackup = resource.Links;
+            IList<Link> linksBackup = resource.Links;
 
-			if (!linksBackup.Any())
-				resource.Links = null; // avoid serialization
+            if (!linksBackup.Any())
+                resource.Links = null; // avoid serialization
 
-			var saveContext = serializer.Context;
+            StreamingContext saveContext = serializer.Context;
             serializer.Context = GetResourceConverterContext();
             serializer.Converters.Remove(this);
             serializer.Serialize(writer, resource);
             serializer.Converters.Add(this);
             serializer.Context = saveContext;
 
-			if (!linksBackup.Any())
-				resource.Links = linksBackup;
-		}
+            if (!linksBackup.Any())
+                resource.Links = linksBackup;
+        }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
                                         JsonSerializer serializer)
@@ -68,10 +68,10 @@ namespace iUS.WebApi.Hal.JsonConverters
             return CreateResource(JObject.Load(reader), objectType);
         }
 
-        const string HalLinksName = "_links";
-        const string HalEmbeddedName = "_embedded";
+        private const string HalLinksName = "_links";
+        private const string HalEmbeddedName = "_embedded";
 
-        static IResource CreateResource(JObject jObj, Type resourceType)
+        private static IResource CreateResource(JObject jObj, Type resourceType)
         {
             // remove _links and _embedded so those don't try to deserialize, because we know they will fail
             JToken links;
@@ -88,9 +88,9 @@ namespace iUS.WebApi.Hal.JsonConverters
             // links are named properties, where the name is Link.Rel and the value is the rest of Link
             if (links != null)
             {
-                foreach (var rel in links.OfType<JProperty>())
+                foreach (JProperty rel in links.OfType<JProperty>())
                     CreateLinks(rel, resource);
-                var self = resource.Links.SingleOrDefault(l => l.Rel == "self");
+                Link self = resource.Links.SingleOrDefault(l => l.Rel == "self");
                 if (self != null)
                     resource.Href = self.Href;
             }
@@ -99,17 +99,17 @@ namespace iUS.WebApi.Hal.JsonConverters
             // recursive
             if (embeddeds != null)
             {
-                foreach (var prop in resourceType.GetProperties().Where(p => Representation.IsEmbeddedResourceType(p.PropertyType)))
+                foreach (PropertyInfo prop in resourceType.GetProperties().Where(p => Representation.IsEmbeddedResourceType(p.PropertyType)))
                 {
                     // expects embedded collection of resources is implemented as an IList on the Representation-derived class
-                    if (typeof (IEnumerable<IResource>).IsAssignableFrom(prop.PropertyType))
+                    if (typeof(IEnumerable<IResource>).IsAssignableFrom(prop.PropertyType))
                     {
                         var lst = prop.GetValue(resource) as IList;
                         if (lst == null)
                         {
                             lst = ConstructResource(prop.PropertyType) as IList ??
                                   Activator.CreateInstance(
-                                      typeof (List<>).MakeGenericType(prop.PropertyType.GenericTypeArguments)) as IList;
+                                      typeof(List<>).MakeGenericType(prop.PropertyType.GenericTypeArguments)) as IList;
                             if (lst == null) continue;
                             prop.SetValue(resource, lst);
                         }
@@ -120,7 +120,7 @@ namespace iUS.WebApi.Hal.JsonConverters
                     }
                     else
                     {
-                        var prop1 = prop;
+                        PropertyInfo prop1 = prop;
                         CreateEmbedded(embeddeds, prop.PropertyType, newRes => prop1.SetValue(resource, newRes));
                     }
                 }
@@ -129,13 +129,13 @@ namespace iUS.WebApi.Hal.JsonConverters
             return resource;
         }
 
-        static void CreateLinks(JProperty rel, IResource resource)
+        private static void CreateLinks(JProperty rel, IResource resource)
         {
             if (rel.Value.Type == JTokenType.Array)
             {
                 var arr = rel.Value as JArray;
                 if (arr != null)
-                    foreach (var link in arr.Select(item => item.ToObject<Link>()))
+                    foreach (Link link in arr.Select(item => item.ToObject<Link>()))
                     {
                         link.Rel = rel.Name;
                         resource.Links.Add(link);
@@ -149,12 +149,12 @@ namespace iUS.WebApi.Hal.JsonConverters
             }
         }
 
-        static void CreateEmbedded(JToken embeddeds, Type resourceType, Action<IResource> addCreatedResource)
+        private static void CreateEmbedded(JToken embeddeds, Type resourceType, Action<IResource> addCreatedResource)
         {
-            var rel = GetResourceTypeRel(resourceType);
+            string rel = GetResourceTypeRel(resourceType);
             if (!string.IsNullOrEmpty(rel))
             {
-                var tok = embeddeds[rel];
+                JToken tok = embeddeds[rel];
                 if (tok != null)
                 {
                     switch (tok.Type)
@@ -164,11 +164,12 @@ namespace iUS.WebApi.Hal.JsonConverters
                                 var embeddedJArr = tok as JArray;
                                 if (embeddedJArr != null)
                                 {
-                                    foreach (var embeddedJObj in embeddedJArr.OfType<JObject>())
+                                    foreach (JObject embeddedJObj in embeddedJArr.OfType<JObject>())
                                         addCreatedResource(CreateResource(embeddedJObj, resourceType)); // recursion
                                 }
                             }
                             break;
+
                         case JTokenType.Object:
                             {
                                 var embeddedJObj = tok as JObject;
@@ -182,41 +183,42 @@ namespace iUS.WebApi.Hal.JsonConverters
         }
 
         // this depends on IResource.Rel being set upon construction
-        static readonly IDictionary<string, string> ResourceTypeToRel = new Dictionary<string, string>();
-        static readonly object ResourceTypeToRelLock = new object();
+        private static readonly IDictionary<string, string> resourceTypeToRel = new Dictionary<string, string>();
 
-        static string GetResourceTypeRel(Type resourceType)
+        private static readonly object resourceTypeToRelLock = new object();
+
+        private static string GetResourceTypeRel(Type resourceType)
         {
-            if (ResourceTypeToRel.ContainsKey(resourceType.FullName))
-                return ResourceTypeToRel[resourceType.FullName];
-            try
+            lock (resourceTypeToRelLock)
             {
-                lock (ResourceTypeToRelLock)
+                if (resourceTypeToRel.ContainsKey(resourceType.FullName))
+                    return resourceTypeToRel[resourceType.FullName];
+                try
                 {
-                    if (ResourceTypeToRel.ContainsKey(resourceType.FullName))
-                        return ResourceTypeToRel[resourceType.FullName];
+                    if (resourceTypeToRel.ContainsKey(resourceType.FullName))
+                        return resourceTypeToRel[resourceType.FullName];
                     var res = ConstructResource(resourceType) as IResource;
                     if (res != null)
                     {
-                        var rel = res.Rel;
-                        ResourceTypeToRel.Add(resourceType.FullName, rel);
+                        string rel = res.Rel;
+                        resourceTypeToRel.Add(resourceType.FullName, rel);
                         return rel;
                     }
+                    return string.Empty;
                 }
-                return string.Empty;
-            }
-            catch
-            {
-                return string.Empty;
+                catch
+                {
+                    return string.Empty;
+                }
             }
         }
 
-        static object ConstructResource(Type resourceType)
+        private static object ConstructResource(Type resourceType)
         {
             // favor c-tor with zero params, but if it doesn't exist, use c-tor with fewest params and pass all null values
-            var ctors = resourceType.GetConstructors();
+            ConstructorInfo[] ctors = resourceType.GetConstructors();
             ConstructorInfo useThisCtor = null;
-            foreach (var ctor in ctors)
+            foreach (ConstructorInfo ctor in ctors)
             {
                 if (ctor.GetParameters().Length == 0)
                 {
@@ -233,15 +235,10 @@ namespace iUS.WebApi.Hal.JsonConverters
 
         public override bool CanConvert(Type objectType)
         {
-            return IsResource(objectType) && !IsResourceList(objectType);
+            return IsResource(objectType);
         }
 
-        static bool IsResourceList(Type objectType)
-        {
-            return typeof(IRepresentationList).IsAssignableFrom(objectType);
-        }
-
-        static bool IsResource(Type objectType)
+        private static bool IsResource(Type objectType)
         {
             return typeof(Representation).IsAssignableFrom(objectType);
         }

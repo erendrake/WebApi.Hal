@@ -5,8 +5,6 @@ namespace iUS.WebApi.Hal.JsonConverters
 {
     public class HalJsonConverterContext
     {
-        readonly IHypermediaResolver hypermediaResolver;
-
         public HalJsonConverterContext()
         {
             IsRoot = true;
@@ -15,15 +13,12 @@ namespace iUS.WebApi.Hal.JsonConverters
         public HalJsonConverterContext(IHypermediaResolver hypermediaResolver) : this()
         {
             if (hypermediaResolver == null) 
-                throw new ArgumentNullException("hypermediaResolver");
+                throw new ArgumentNullException(nameof(hypermediaResolver));
 
-            this.hypermediaResolver = hypermediaResolver;
+            this.HypermediaResolver = hypermediaResolver;
         }
 
-        public IHypermediaResolver HypermediaResolver
-        {
-            get { return hypermediaResolver; }
-        }
+        public IHypermediaResolver HypermediaResolver { get; }
 
         public bool IsRoot { get; set; }
     }

@@ -5,7 +5,6 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.SwaggerGen;
 using WebApi.Hal.Web.Data;
 
@@ -21,11 +20,10 @@ namespace WebApi.Hal.Web
 
         #region Public methods
 
-        public Startup(IHostingEnvironment env,
-            IApplicationEnvironment appEnv)
+        public Startup()
         {
             // Load all the configuration information from the "json" file & the environment variables.
-            var builder = new ConfigurationBuilder()
+            IConfigurationBuilder builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -33,7 +31,7 @@ namespace WebApi.Hal.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration["Data:DefaultConnection:ConnectionString"];
+            string connectionString = Configuration["Data:DefaultConnection:ConnectionString"];
             services.AddLogging();
             services.AddSwaggerGen();
             services.ConfigureSwaggerDocument(opts => {

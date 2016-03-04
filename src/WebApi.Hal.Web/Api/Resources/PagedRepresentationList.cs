@@ -5,7 +5,7 @@ namespace WebApi.Hal.Web.Api.Resources
 {
     public abstract class PagedRepresentationList<TRepresentation> : SimpleListRepresentation<TRepresentation> where TRepresentation : Representation
     {
-        readonly Link uriTemplate;
+        private readonly Link uriTemplate;
 
         protected PagedRepresentationList(IList<TRepresentation> res, int totalResults, int totalPages, int page, Link uriTemplate, object uriTemplateSubstitutionParams)
             : base(res)
@@ -35,14 +35,14 @@ namespace WebApi.Hal.Web.Api.Resources
 
             if (Page > 1)
             {
-                var item = UriTemplateSubstitutionParams == null
+                Link item = UriTemplateSubstitutionParams == null
                                 ? uriTemplate.CreateLink("prev", new { page = Page - 1 })
                                 : uriTemplate.CreateLink("prev", UriTemplateSubstitutionParams, new { page = Page - 1 }); // page overrides UriTemplateSubstitutionParams
                 Links.Add(item);
             } 
             if (Page < TotalPages)
             {
-                var link = UriTemplateSubstitutionParams == null // kbr
+                Link link = UriTemplateSubstitutionParams == null // kbr
                                ? uriTemplate.CreateLink("next", new { page = Page + 1 })
                                : uriTemplate.CreateLink("next", UriTemplateSubstitutionParams, new { page = Page + 1 }); // page overrides UriTemplateSubstitutionParams
                 Links.Add(link);

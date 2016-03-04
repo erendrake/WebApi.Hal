@@ -14,12 +14,12 @@ namespace iUS.WebApi.Hal.JsonConverters
 
             writer.WriteStartObject();
 
-            foreach (var rel in resourceList)
+            foreach (EmbeddedResource rel in resourceList)
             {
                 writer.WritePropertyName(NormalizeRel(rel.Resources[0]));
                 if (rel.IsSourceAnArray)
                     writer.WriteStartArray();
-                foreach (var res in rel.Resources)
+                foreach (IResource res in rel.Resources)
                     serializer.Serialize(writer, res);
                 if (rel.IsSourceAnArray)
                     writer.WriteEndArray();
@@ -33,10 +33,7 @@ namespace iUS.WebApi.Hal.JsonConverters
             return "unknownRel-" + res.GetType().Name;
         }
 
-        public override bool CanRead
-        {
-            get { return false; }
-        }
+        public override bool CanRead => false;
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
                                         JsonSerializer serializer)
