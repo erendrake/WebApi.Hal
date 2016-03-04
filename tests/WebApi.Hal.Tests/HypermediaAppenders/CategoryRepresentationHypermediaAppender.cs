@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using iUS.WebApi.Hal;
+using iUS.WebApi.Hal.Interfaces;
 using WebApi.Hal.Tests.Representations;
 
 namespace WebApi.Hal.Tests.HypermediaAppenders
@@ -7,7 +9,7 @@ namespace WebApi.Hal.Tests.HypermediaAppenders
     {
         public void Append(CategoryRepresentation resource, IEnumerable<Link> configured)
         {
-            foreach (var link in configured)
+            foreach (Link link in configured)
             {
                 switch (link.Rel)
                 {

@@ -1,3 +1,4 @@
+using iUS.WebApi.Hal;
 using Newtonsoft.Json;
 
 namespace WebApi.Hal.Tests.Representations

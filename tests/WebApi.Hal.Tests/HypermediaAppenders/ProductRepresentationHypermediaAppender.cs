@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using WebApi.Hal.Interfaces;
+using iUS.WebApi.Hal;
+using iUS.WebApi.Hal.Interfaces;
 using WebApi.Hal.Tests.Representations;
 
 namespace WebApi.Hal.Tests.HypermediaAppenders
@@ -8,7 +9,7 @@ namespace WebApi.Hal.Tests.HypermediaAppenders
     {
         public void Append(ProductRepresentation resource, IEnumerable<Link> configured)
         {
-            foreach (var link in configured)
+            foreach (Link link in configured)
             {
                 switch (link.Rel)
                 {
@@ -20,11 +21,11 @@ namespace WebApi.Hal.Tests.HypermediaAppenders
                         break;
                     case "example-namespace:related-product":
                         for (var i = 0; i < 3; i++)
-                            resource.Links.Add(link.CreateLink(new { id = string.Format("related-product-{0:00}", i) }));
+                            resource.Links.Add(link.CreateLink(new { id = $"related-product-{i:00}"}));
                         break;
                     case "example-namespace:product-on-sale":
                         for (var i = 0; i < 3; i++)
-                            resource.Links.Add(link.CreateLink(new { id = string.Format("product-on-sale-{0:00}", i) }));
+                            resource.Links.Add(link.CreateLink(new { id = $"product-on-sale-{i:00}"}));
                         break;
                     default:
                         resource.Links.Add(link); // append untouched ...
