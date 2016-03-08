@@ -1,5 +1,5 @@
 {
-    "version": "1.0.2-*",
+    "version": "1.0.4-*",
     "description": "iUS.WebApi.Hal",
     "authors": [ "Jake Ginnivan", "Chris Woerz" ],
     "tags": [ "Hypermedia", "Asp.net", "WebApi", "Json", "Xml", "Hal" ],
