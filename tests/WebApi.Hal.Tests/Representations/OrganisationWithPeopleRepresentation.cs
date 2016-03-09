@@ -1,3 +1,5 @@
+using iUS.WebApi.Hal;
+
 namespace WebApi.Hal.Tests.Representations
 {
     public class OrganisationWithPeopleRepresentation : Representation

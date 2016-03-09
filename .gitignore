@@ -99,6 +99,7 @@ UpgradeLog*.XML
 
 # NuGet temporary packages folder
 packages
+*.lock.json
 
 # any logs
 *.log

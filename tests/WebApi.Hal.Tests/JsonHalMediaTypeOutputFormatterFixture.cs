@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using iUS.WebApi.Hal;
+using System.Collections.Generic;
 using System.IO;
 using WebApi.Hal.Tests.Representations;
 using Xunit;
@@ -7,7 +8,7 @@ namespace WebApi.Hal.Tests
 {
     public class JsonHalMediaTypeOutputFormatterFixture
     {
-        readonly OrganisationWithPeopleDetailRepresentation resource;
+        private readonly OrganisationWithPeopleDetailRepresentation resource;
 
         public JsonHalMediaTypeOutputFormatterFixture()
         {
@@ -20,7 +21,7 @@ namespace WebApi.Hal.Tests
             resource.People.Add(new Person(4, "Wally", 1));
             resource.People.Add(new Person(5, "Alice", 1));
         }
-        
+
         [Fact]
         public void When_Formatting_A_Representation_With_HalPlusJson_Then_Json_Is_Returned()
         {

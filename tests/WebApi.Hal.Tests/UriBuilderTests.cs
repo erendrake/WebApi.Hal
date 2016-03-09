@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using iUS.WebApi.Hal;
+using Xunit;
 
 namespace WebApi.Hal.Tests
 {
@@ -11,7 +12,7 @@ namespace WebApi.Hal.Tests
             var templateLink = new Link("beers", "/beers");
 
             // act
-            var link = templateLink.CreateLink(new{});
+            var link = templateLink.CreateLink(new { });
 
             // assert
             Assert.Equal("beers", link.Rel);
@@ -26,7 +27,7 @@ namespace WebApi.Hal.Tests
             var templateLink = new Link("beerSearch", "/beers{?searchTerm}");
 
             // act
-            var link = templateLink.CreateLink(new {});
+            var link = templateLink.CreateLink(new { });
 
             // assert
             Assert.False(link.IsTemplated);
@@ -51,7 +52,7 @@ namespace WebApi.Hal.Tests
             var templateLink = new Link("beerSearch", "/beers{?searchTerm}");
 
             // act
-            var link = templateLink.CreateLink(new{searchTerm = "test"});
+            var link = templateLink.CreateLink(new { searchTerm = "test" });
 
             // assert
             Assert.Equal("/beers?searchTerm=test", link.Href);
@@ -103,7 +104,7 @@ namespace WebApi.Hal.Tests
             var templateLink = new Link("beerbyname", "http://myserver.com/api/beers/{name}");
 
             // act
-            var link = templateLink.CreateUri(new {name = "BeerName"});
+            var link = templateLink.CreateUri(new { name = "BeerName" });
 
             // assert
             Assert.Equal("http://myserver.com/api/beers/BeerName", link.ToString());
@@ -116,7 +117,7 @@ namespace WebApi.Hal.Tests
             var templateLink = new Link("beerbyname", "http://myserver.com/api/beers{name}", "Beer");
 
             // act
-            var link = templateLink.CreateLink(new {name = "BeerName"});
+            var link = templateLink.CreateLink(new { name = "BeerName" });
 
             // assert
             Assert.Equal(link.Title, "Beer");
