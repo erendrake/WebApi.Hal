@@ -1,9 +1,10 @@
-using System;
 using iUS.WebApi.Hal.Interfaces;
 using iUS.WebApi.Hal.JsonConverters;
 using Microsoft.AspNet.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 
 namespace iUS.WebApi.Hal
 {
@@ -35,7 +36,7 @@ namespace iUS.WebApi.Hal
             Initialize();
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Private methods
 
@@ -46,8 +47,9 @@ namespace iUS.WebApi.Hal
             SerializerSettings.Converters.Add(resourceConverter);
             SerializerSettings.Converters.Add(embeddedResourceConverter);
             SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
 
-        #endregion
+        #endregion Private methods
     }
 }
