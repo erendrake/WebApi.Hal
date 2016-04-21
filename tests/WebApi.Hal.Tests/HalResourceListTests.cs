@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using ApprovalTests;
+﻿using ApprovalTests;
 using ApprovalTests.Reporters;
 using iUS.WebApi.Hal;
+using System.Collections.Generic;
+using System.IO;
 using WebApi.Hal.Tests.Representations;
 using Xunit;
 
@@ -11,9 +10,9 @@ namespace WebApi.Hal.Tests
 {
     public class HalResourceListTests
     {
-        readonly OrganisationListRepresentation representation;
+        private readonly OrganisationListRepresentation representation;
 
-        readonly OrganisationListRepresentation oneitemrepresentation;
+        private readonly OrganisationListRepresentation oneitemrepresentation;
 
         public HalResourceListTests()
         {
@@ -36,16 +35,14 @@ namespace WebApi.Hal.Tests
         public void organisation_list_get_xml_test()
         {
             // arrange
-            var mediaFormatter = new XmlHalMediaTypeFormatter();
-            var content = new StringContent(string.Empty);
-            var type = representation.GetType();
+            var mediaFormatter = new XmlHalMediaTypeOutputFormatter();
 
             // act
-            using (var stream = new MemoryStream())
+            using (var stream = new StringWriter())
             {
-                mediaFormatter.WriteToStream(type, representation, stream, content);
-                stream.Seek(0, SeekOrigin.Begin);
-                var serialisedResult = new StreamReader(stream).ReadToEnd();
+                mediaFormatter.WriteObject(stream, representation);
+
+                string serialisedResult = stream.ToString();
 
                 // assert
                 Approvals.Verify(serialisedResult);
@@ -57,22 +54,18 @@ namespace WebApi.Hal.Tests
         public void organisation_list_get_json_test()
         {
             // arrange
-            var mediaFormatter = new JsonHalMediaTypeFormatter { Indent = true };
-            var content = new StringContent(string.Empty);
-            var type = representation.GetType();
+            var mediaFormatter = new JsonHalMediaTypeOutputFormatter();
 
             // act
-            using (var stream = new MemoryStream())
+            using (var stream = new StringWriter())
             {
-                mediaFormatter.WriteToStreamAsync(type, representation, stream, content, null).Wait();
-                stream.Seek(0, SeekOrigin.Begin);
-                var serialisedResult = new StreamReader(stream).ReadToEnd();
+                mediaFormatter.WriteObject(stream, representation);
+
+                string serialisedResult = stream.ToString();
 
                 // assert
                 Approvals.Verify(serialisedResult);
             }
-
-
         }
 
         [Fact]
@@ -80,16 +73,14 @@ namespace WebApi.Hal.Tests
         public void one_item_organisation_list_get_json_test()
         {
             // arrange
-            var mediaFormatter = new JsonHalMediaTypeOutputFormatter { Indent = true };
-            var content = new StringContent(string.Empty);
-            var type = oneitemrepresentation.GetType();
+            var mediaFormatter = new JsonHalMediaTypeOutputFormatter();
 
             // act
-            using (var stream = new MemoryStream())
+            using (var stream = new StringWriter())
             {
-                mediaFormatter.WriteToStreamAsync(type, oneitemrepresentation, stream, content, null).Wait();
-                stream.Seek(0, SeekOrigin.Begin);
-                var serialisedResult = new StreamReader(stream).ReadToEnd();
+                mediaFormatter.WriteObject(stream, oneitemrepresentation);
+
+                string serialisedResult = stream.ToString();
 
                 // assert
                 Approvals.Verify(serialisedResult);
