@@ -1,6 +1,7 @@
 {
   "version": "1.0.0-*",
-
+  "description": "iUS.WebApi.Hal.Web",
+  "authors": [ "Jake Ginnivan", "Chris Woerz" ],
   "compilationOptions": {
     "emitEntryPoint": true
   },
