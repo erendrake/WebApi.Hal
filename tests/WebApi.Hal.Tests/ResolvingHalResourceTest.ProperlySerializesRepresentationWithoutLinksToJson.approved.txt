@@ -1,0 +1,11 @@
+﻿{
+  "id": 9,
+  "title": "Morpheus in a chair statuette",
+  "price": 20.14,
+  "_embedded": {
+    "unknownRel-CategoryRepresentation": {
+      "title": "Action Figures",
+      "_links": null
+    }
+  }
+}
