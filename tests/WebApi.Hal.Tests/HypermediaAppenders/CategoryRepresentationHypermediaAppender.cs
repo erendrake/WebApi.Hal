@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using iUS.WebApi.Hal;
 using iUS.WebApi.Hal.Interfaces;
-using WebApi.Hal.Tests.Representations;
+using iUS.WebApi.Hal.Tests.Representations;
 
-namespace WebApi.Hal.Tests.HypermediaAppenders
+namespace iUS.WebApi.Hal.Tests.HypermediaAppenders
 {
     public class CategoryRepresentationHypermediaAppender : IHypermediaAppender<CategoryRepresentation>
     {

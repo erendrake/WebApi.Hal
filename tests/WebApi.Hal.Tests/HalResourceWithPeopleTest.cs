@@ -1,11 +1,13 @@
 ﻿using System.IO;
-using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using WebApi.Hal.Tests.Representations;
+using iUS.WebApi.Hal.Tests.Representations;
+using Newtonsoft.Json;
 using Xunit;
 
-namespace WebApi.Hal.Tests
+namespace iUS.WebApi.Hal.Tests
 {
     public class HalResourceWithPeopleTest
     {
@@ -15,47 +17,54 @@ namespace WebApi.Hal.Tests
         {
             resource = new OrganisationWithPeopleRepresentation(1, "Org Name");
         }
-        /*
+        
         [Fact]
         [UseReporter(typeof(DiffReporter))]
-        public void organisation_get_json_test()
+        public async Task organisation_get_json_test()
         {
             // arrange
-            var mediaFormatter = new JsonHalMediaTypeFormatter { Indent = true };
-            var content = new StringContent(string.Empty);
-            var type = resource.GetType();
+            var mediaFormatter = new JsonHalMediaTypeOutputFormatter()
+            {
+                SerializerSettings = { Formatting = Formatting.Indented }
+            };
+
+            var context = HalResourceTest.GetOutputFormatterContext(resource, typeof(OrganisationWithPeopleRepresentation));
 
             // act
-            using (var stream = new MemoryStream())
-            {
-                mediaFormatter.WriteToStreamAsync(type, resource, stream, content, null).Wait();
-                stream.Seek(0, SeekOrigin.Begin);
-                var serialisedResult = new StreamReader(stream).ReadToEnd();
+            await mediaFormatter.WriteResponseBodyAsync(context);
 
-                // assert
-                Approvals.Verify(serialisedResult);
-            }
+            var body = context.HttpContext.Response.Body;
+
+            Assert.NotNull(body);
+            body.Position = 0;
+
+            var content = new StreamReader(body, Encoding.UTF8).ReadToEnd();
+
+            // assert
+            Approvals.Verify(content);
         }
 
         [Fact]
         [UseReporter(typeof(DiffReporter))]
-        public void organisation_get_xml_test()
+        public async Task organisation_get_xml_test()
         {
             // arrange
-            var mediaFormatter = new XmlHalMediaTypeFormatter();
-            var content = new StringContent(string.Empty);
-            var type = resource.GetType();
+            var mediaFormatter = new XmlHalMediaTypeOutputFormatter();
+
+            var context = HalResourceTest.GetOutputFormatterContext(resource, typeof(OrganisationWithPeopleRepresentation));
 
             // act
-            using (var stream = new MemoryStream())
-            {
-                mediaFormatter.WriteToStreamAsync(type, resource, stream, content, null);
-                stream.Seek(0, SeekOrigin.Begin);
-                var serialisedResult = new StreamReader(stream).ReadToEnd();
+            await mediaFormatter.WriteResponseBodyAsync(context);
 
-                // assert
-                Approvals.Verify(serialisedResult);
-            }
-        } */
+            var body = context.HttpContext.Response.Body;
+
+            Assert.NotNull(body);
+            body.Position = 0;
+
+            var content = new StreamReader(body, Encoding.UTF8).ReadToEnd();
+
+            // assert
+            Approvals.Verify(content);
+        }
     }
 }

@@ -1,4 +1,4 @@
-namespace WebApi.Hal.Tests.Representations
+namespace iUS.WebApi.Hal.Tests.Representations
 {
     public class Boss : Person // it's debatable whether some bosses are people
     {

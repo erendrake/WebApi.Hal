@@ -1,0 +1,20 @@
+﻿{
+  "id": 1,
+  "name": "Org Name",
+  "_links": {
+    "self": {
+      "href": "/api/organisations/1"
+    },
+    "people": {
+      "href": "/api/organisations/1/people"
+    },
+    "brownnoser": [
+      {
+        "href": "/api/organisations/1/brown/1"
+      },
+      {
+        "href": "/api/organisations/1/brown/2"
+      }
+    ]
+  }
+}

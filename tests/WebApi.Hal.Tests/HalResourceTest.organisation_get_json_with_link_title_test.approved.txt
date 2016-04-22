@@ -1,0 +1,10 @@
+﻿{
+  "id": 1,
+  "name": "Org Name",
+  "_links": {
+    "somerel": {
+      "href": "someHref",
+      "title": "someTitle"
+    }
+  }
+}

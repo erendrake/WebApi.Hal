@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using iUS.WebApi.Hal;
 
-namespace WebApi.Hal.Tests.Representations
+namespace iUS.WebApi.Hal.Tests.Representations
 {
     public class OrganisationWithPeopleDetailRepresentation : Representation
     {

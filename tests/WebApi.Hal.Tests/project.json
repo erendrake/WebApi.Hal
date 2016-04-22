@@ -1,6 +1,7 @@
 {
   "version": "1.0.0-*",
-  "description": "",
+  "description": "iUS.WebApi.Hal.Tests",
+  "authors": [ "Jake Ginnivan", "Chris Woerz", "Alex Mitchell" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",

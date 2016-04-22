@@ -1,12 +1,14 @@
-﻿using ApprovalTests;
-using ApprovalTests.Reporters;
-using iUS.WebApi.Hal;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using WebApi.Hal.Tests.Representations;
+using System.Text;
+using System.Threading.Tasks;
+using ApprovalTests;
+using ApprovalTests.Reporters;
+using iUS.WebApi.Hal.Tests.Representations;
+using Newtonsoft.Json;
 using Xunit;
 
-namespace WebApi.Hal.Tests
+namespace iUS.WebApi.Hal.Tests
 {
     public class HalResourceListTests
     {
@@ -32,59 +34,79 @@ namespace WebApi.Hal.Tests
 
         [Fact]
         [UseReporter(typeof(DiffReporter))]
-        public void organisation_list_get_xml_test()
+        public async Task organisation_list_get_xml_test()
         {
             // arrange
             var mediaFormatter = new XmlHalMediaTypeOutputFormatter();
+            
+            var context = HalResourceTest.GetOutputFormatterContext(representation, typeof(OrganisationListRepresentation));
 
             // act
-            using (var stream = new StringWriter())
-            {
-                mediaFormatter.WriteObject(stream, representation);
+            await mediaFormatter.WriteResponseBodyAsync(context);
 
-                string serialisedResult = stream.ToString();
+            var body = context.HttpContext.Response.Body;
 
-                // assert
-                Approvals.Verify(serialisedResult);
-            }
+            Assert.NotNull(body);
+            body.Position = 0;
+
+            var content = new StreamReader(body, Encoding.UTF8).ReadToEnd();
+
+            // assert
+            Approvals.Verify(content);
         }
 
         [Fact]
         [UseReporter(typeof(DiffReporter))]
-        public void organisation_list_get_json_test()
+        public async Task organisation_list_get_json_test()
         {
             // arrange
-            var mediaFormatter = new JsonHalMediaTypeOutputFormatter();
+            var mediaFormatter = new JsonHalMediaTypeOutputFormatter()
+            {
+                SerializerSettings = { Formatting = Formatting.Indented}
+            };
+
+            var context = HalResourceTest.GetOutputFormatterContext(representation, typeof(OrganisationListRepresentation));
 
             // act
-            using (var stream = new StringWriter())
-            {
-                mediaFormatter.WriteObject(stream, representation);
+            await mediaFormatter.WriteResponseBodyAsync(context);
 
-                string serialisedResult = stream.ToString();
+            var body = context.HttpContext.Response.Body;
 
-                // assert
-                Approvals.Verify(serialisedResult);
-            }
+            Assert.NotNull(body);
+            body.Position = 0;
+
+            var content = new StreamReader(body, Encoding.UTF8).ReadToEnd();
+
+            // assert
+            Approvals.Verify(content);
         }
 
         [Fact]
         [UseReporter(typeof(DiffReporter))]
-        public void one_item_organisation_list_get_json_test()
+        public async Task one_item_organisation_list_get_json_test()
         {
             // arrange
-            var mediaFormatter = new JsonHalMediaTypeOutputFormatter();
+            var mediaFormatter = new JsonHalMediaTypeOutputFormatter
+            {
+                SerializerSettings = {Formatting = Formatting.Indented}
+            };
+
+            var context = HalResourceTest.GetOutputFormatterContext(oneitemrepresentation, typeof(OrganisationListRepresentation));
 
             // act
-            using (var stream = new StringWriter())
-            {
-                mediaFormatter.WriteObject(stream, oneitemrepresentation);
+            
+            await mediaFormatter.WriteResponseBodyAsync(context);
 
-                string serialisedResult = stream.ToString();
+            var body = context.HttpContext.Response.Body;
 
-                // assert
-                Approvals.Verify(serialisedResult);
-            }
+            Assert.NotNull(body);
+            body.Position = 0;
+
+            var content = new StreamReader(body, Encoding.UTF8).ReadToEnd();
+
+            // assert
+            Approvals.Verify(content);
+            
         }
     }
 }
