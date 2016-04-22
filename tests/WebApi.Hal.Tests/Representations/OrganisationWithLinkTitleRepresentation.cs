@@ -1,6 +1,4 @@
-using iUS.WebApi.Hal;
-
-namespace WebApi.Hal.Tests.Representations
+namespace iUS.WebApi.Hal.Tests.Representations
 {
     /// <summary>
     /// link title

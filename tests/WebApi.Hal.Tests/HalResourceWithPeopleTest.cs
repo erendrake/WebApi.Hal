@@ -1,15 +1,13 @@
 ﻿using System.IO;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using iUS.WebApi.Hal;
+using iUS.WebApi.Hal.Tests.Representations;
 using Newtonsoft.Json;
-using WebApi.Hal.Tests.Representations;
 using Xunit;
 
-namespace WebApi.Hal.Tests
+namespace iUS.WebApi.Hal.Tests
 {
     public class HalResourceWithPeopleTest
     {

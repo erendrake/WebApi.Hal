@@ -1,7 +1,6 @@
-using iUS.WebApi.Hal;
 using Newtonsoft.Json;
 
-namespace WebApi.Hal.Tests.Representations
+namespace iUS.WebApi.Hal.Tests.Representations
 {
     public class CategoryRepresentation : Representation
     {

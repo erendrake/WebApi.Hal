@@ -1,21 +1,23 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using WebApi.Hal.Tests.HypermediaAppenders;
-using WebApi.Hal.Tests.Representations;
+using iUS.WebApi.Hal.Tests.HypermediaAppenders;
+using iUS.WebApi.Hal.Tests.Representations;
+using Newtonsoft.Json;
 using Xunit;
 
-namespace WebApi.Hal.Tests
+namespace iUS.WebApi.Hal.Tests
 {
     public class HypermediaContainerTests
     {
         readonly ProductRepresentation representation = new ProductRepresentation();
-        /*
+        
         [Fact]
         [UseReporter(typeof(DiffReporter))]
-        public void CanUseRegisterExtensionMethod()
+        public async Task CanUseRegisterExtensionMethod()
         {
             var curie = new CuriesLink("aap", "http://www.helpt.com/{?rel}");
 
@@ -29,20 +31,25 @@ namespace WebApi.Hal.Tests
             var config = builder.Build();
 
             // arrange
-            var mediaFormatter = new JsonHalMediaTypeFormatter(config) { Indent = true };
-            var content = new StringContent(string.Empty);
-            var type = representation.GetType();
+            var mediaFormatter = new JsonHalMediaTypeOutputFormatter(config)
+            {
+                SerializerSettings = { Formatting = Formatting.Indented }
+            };
+
+            var context = HalResourceTest.GetOutputFormatterContext(representation, typeof(ProductRepresentation));
 
             // act
-            using (var stream = new MemoryStream())
-            {
-                mediaFormatter.WriteToStreamAsync(type, representation, stream, content, null);
-                stream.Seek(0, SeekOrigin.Begin);
-                var serialisedResult = new StreamReader(stream).ReadToEnd();
+            await mediaFormatter.WriteResponseBodyAsync(context);
 
-                // assert
-                Approvals.Verify(serialisedResult);
-            }
+            var body = context.HttpContext.Response.Body;
+
+            Assert.NotNull(body);
+            body.Position = 0;
+
+            var content = new StreamReader(body, Encoding.UTF8).ReadToEnd();
+
+            // assert
+            Approvals.Verify(content);
         }
 
         [Fact]
@@ -120,6 +127,6 @@ namespace WebApi.Hal.Tests
             Assert.Equal(2, hypermedia.Count());
             Assert.Contains(link1, hypermedia, Link.EqualityComparer);
             Assert.Contains(link2, hypermedia, Link.EqualityComparer);
-        }*/
+        }
     }
 }

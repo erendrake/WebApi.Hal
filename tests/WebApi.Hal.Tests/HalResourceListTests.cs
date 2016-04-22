@@ -1,27 +1,14 @@
-﻿using System;
-using ApprovalTests;
-using ApprovalTests.Reporters;
-using iUS.WebApi.Hal;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Http.Internal;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Abstractions;
-using Microsoft.AspNet.Mvc.Formatters;
-using Microsoft.AspNet.Mvc.Infrastructure;
-using Microsoft.AspNet.Routing;
-using Microsoft.Extensions.Primitives;
-using Microsoft.Net.Http.Headers;
-using Moq;
+using ApprovalTests;
+using ApprovalTests.Reporters;
+using iUS.WebApi.Hal.Tests.Representations;
 using Newtonsoft.Json;
-using WebApi.Hal.Tests.Representations;
 using Xunit;
 
-
-namespace WebApi.Hal.Tests
+namespace iUS.WebApi.Hal.Tests
 {
     public class HalResourceListTests
     {

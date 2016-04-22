@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using iUS.WebApi.Hal;
+using iUS.WebApi.Hal.Tests.Representations;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Http.Internal;
 using Microsoft.AspNet.Mvc;
@@ -16,10 +15,9 @@ using Microsoft.AspNet.Routing;
 using Microsoft.Net.Http.Headers;
 using Moq;
 using Newtonsoft.Json;
-using WebApi.Hal.Tests.Representations;
 using Xunit;
 
-namespace WebApi.Hal.Tests
+namespace iUS.WebApi.Hal.Tests
 {
     public class HalResourceTest
     {

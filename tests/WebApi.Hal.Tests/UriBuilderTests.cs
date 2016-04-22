@@ -1,7 +1,6 @@
-﻿using iUS.WebApi.Hal;
-using Xunit;
+﻿using Xunit;
 
-namespace WebApi.Hal.Tests
+namespace iUS.WebApi.Hal.Tests
 {
     public class UriBuilderTests
     {

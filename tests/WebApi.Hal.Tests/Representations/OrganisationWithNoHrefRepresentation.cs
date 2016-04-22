@@ -1,6 +1,4 @@
-﻿using iUS.WebApi.Hal;
-
-namespace WebApi.Hal.Tests.Representations
+﻿namespace iUS.WebApi.Hal.Tests.Representations
 {
     /// <summary>
     /// no self link is desired, as is the case when a client generates a represent to send to the server
