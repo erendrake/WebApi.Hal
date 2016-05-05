@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "iUS.WebApi.Hal",
   "authors": [ "Jake Ginnivan", "Chris Woerz" ],
   "tags": [ "Hypermedia", "Asp.net", "WebApi", "Json", "Xml", "Hal" ],
@@ -8,9 +8,7 @@
   "copyright": "Copyright Jake Ginnivan 2013",
 
   "dependencies": {
-    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-    "Microsoft.Extensions.Primitives": "1.0.0-rc1-final"
+    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final"
   },
 
   "tooling": {
@@ -18,10 +16,15 @@
   },
 
   "frameworks": {
-    "dnx451": {
+    "net451": {
       "frameworkAssemblies": {
         "System.Web": "4.0.0.0"
+        }
+      },
+      "dnx451": {
+        "frameworkAssemblies": {
+          "System.Web": "4.0.0.0"
+        }
       }
     }
-  }
 }
