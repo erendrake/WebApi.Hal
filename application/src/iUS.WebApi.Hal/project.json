@@ -1,5 +1,5 @@
 {
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "iUS.WebApi.Hal",
   "authors": [ "Jake Ginnivan", "Chris Woerz" ],
   "tags": [ "Hypermedia", "Asp.net", "WebApi", "Json", "Xml", "Hal" ],
@@ -19,11 +19,6 @@
     "net451": {
       "frameworkAssemblies": {
         "System.Web": "4.0.0.0"
-        }
-      },
-      "dnx451": {
-        "frameworkAssemblies": {
-          "System.Web": "4.0.0.0"
         }
       }
     }

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.0.1",
   "description": "iUS.WebApi.Hal.Web",
   "authors": [ "Jake Ginnivan", "Chris Woerz" ],
   "compilationOptions": {
@@ -43,11 +43,7 @@
   },
 
   "frameworks": {
-    "dnx451": {
-      "frameworkAssemblies": {
-        "System.Web": "4.0.0.0"
-      }
-    }
+    "dnx451": { }
   },
 
   "exclude": [
