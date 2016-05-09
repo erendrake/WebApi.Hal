@@ -42,6 +42,7 @@ namespace iUS.WebApi.Hal
 
         private void Initialize()
         {
+            SupportedMediaTypes.Clear();
             SupportedMediaTypes.Add(new MediaTypeHeaderValue(MediaTypeHeaderValueName));
             SerializerSettings.Converters.Add(linksConverter);
             SerializerSettings.Converters.Add(resourceConverter);
